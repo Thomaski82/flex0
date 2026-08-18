@@ -1,0 +1,28 @@
+const jobs = [
+  {id:1,role:'Barista / pomoc na sali',company:'Kawa Dobro',icon:'☕',date:'Dzisiaj',time:'17:00–21:00',hours:4,rate:30,distance:'0,8 km',area:'Śródmieście',match:96,color:'#c9efe0',tasks:['Obsługa gości i wydawanie zamówień','Dbanie o porządek na sali','Proste przygotowanie napojów']},
+  {id:2,role:'Obsługa eventu',company:'Hala Koszyki',icon:'✦',date:'Dzisiaj',time:'18:30–22:30',hours:4,rate:34,distance:'1,4 km',area:'Centrum',match:92,color:'#ffe0cf',tasks:['Witanie i kierowanie gości','Wsparcie szatni','Porządkowanie strefy eventowej']},
+  {id:3,role:'Pomoc kuchenna',company:'Zielony Talerz',icon:'🥗',date:'Jutro',time:'12:00–16:00',hours:4,rate:29,distance:'2,1 km',area:'Mokotów',match:88,color:'#e4efbb',tasks:['Przygotowanie stanowisk','Proste prace kuchenne','Utrzymanie porządku']},
+  {id:4,role:'Pracownik sklepu',company:'Lokals',icon:'◼',date:'Jutro',time:'16:00–20:00',hours:4,rate:31,distance:'1,7 km',area:'Powiśle',match:84,color:'#d9ddff',tasks:['Wykładanie produktu','Pomoc klientom','Porządkowanie ekspozycji']},
+  {id:5,role:'Host / hostessa',company:'Kino Muranów',icon:'▶',date:'Czwartek',time:'17:30–21:30',hours:4,rate:32,distance:'2,6 km',area:'Muranów',match:81,color:'#f7d6df',tasks:['Kontrola biletów','Wskazywanie sal','Pomoc przy wydarzeniu']},
+  {id:6,role:'Pakowanie zamówień',company:'Paczka Roślin',icon:'⌂',date:'Piątek',time:'09:00–13:00',hours:4,rate:28,distance:'3,2 km',area:'Wola',match:79,color:'#d8ead8',tasks:['Kompletowanie produktów','Pakowanie paczek','Kontrola etykiet']}
+];
+let booked = JSON.parse(localStorage.getItem('flexo-booked')||'[1]');
+let activeFilter='all';
+const grid=document.querySelector('#jobsGrid'), modal=document.querySelector('#jobModal');
+
+function renderJobs(){
+  const q=document.querySelector('#searchInput').value.toLowerCase();
+  const list=jobs.filter(j=>(activeFilter==='all'||(activeFilter==='today'&&j.date==='Dzisiaj')||(activeFilter==='tomorrow'&&j.date==='Jutro'))&&(j.role+' '+j.company+' '+j.area).toLowerCase().includes(q));
+  grid.innerHTML=list.length?list.map(j=>`<article class="job-card" data-id="${j.id}"><div class="job-cover" style="--cover:${j.color}"><div class="company-logo">${j.icon}</div><span class="match">${j.match}% DOPASOWANIA</span></div><div class="job-body"><h3>${j.role}</h3><span class="company">${j.company} · ${j.area}</span><div class="job-meta"><span>▣ ${j.date}, ${j.time}</span><span>⌖ ${j.distance}</span></div><div class="job-footer"><div><strong>${j.rate*j.hours} zł</strong><small> · ${j.rate} zł/h</small></div><button>${booked.includes(j.id)?'Zapisano ✓':'Zobacz'}</button></div></div></article>`).join(''):'<div class="empty">Nie znaleźliśmy takich zmian. Spróbuj zmienić filtry.</div>';
+  document.querySelectorAll('.job-card').forEach(el=>el.onclick=()=>openJob(+el.dataset.id));
+}
+function openJob(id){const j=jobs.find(x=>x.id===id);modal.querySelector('#modalContent').innerHTML=`<div class="modal-hero" style="background:${j.color}"><div class="company-logo">${j.icon}</div><p class="eyebrow">${j.match}% DOPASOWANIA</p><h2>${j.role}</h2><p>${j.company} · ${j.area}</p></div><div class="modal-body"><div class="modal-details"><div class="detail"><small>Kiedy</small><strong>${j.date}<br>${j.time}</strong></div><div class="detail"><small>Wynagrodzenie</small><strong>${j.rate*j.hours} zł<br>${j.rate} zł/h</strong></div></div><h3>Co będziesz robić?</h3><ul>${j.tasks.map(t=>`<li>${t}</li>`).join('')}</ul><button class="book-button" data-book="${j.id}">${booked.includes(j.id)?'Anuluj zapis':'Biorę tę zmianę'}</button></div>`;modal.showModal();modal.querySelector('[data-book]').onclick=()=>toggleBook(id)}
+function toggleBook(id){booked=booked.includes(id)?booked.filter(x=>x!==id):[...booked,id];localStorage.setItem('flexo-booked',JSON.stringify(booked));modal.close();renderJobs();renderBooked();toast(booked.includes(id)?'Zmiana jest Twoja! Szczegóły znajdziesz w kalendarzu.':'Zapis na zmianę został anulowany.')}
+function renderBooked(){const list=booked.map(id=>jobs.find(j=>j.id===id)).filter(Boolean);document.querySelector('#shiftCount').textContent=list.length;document.querySelector('#bookedList').innerHTML=list.length?list.map(j=>`<article class="booked-card"><div class="date-tile"><small>${j.date==='Dzisiaj'?'SIE':'JUT'}</small><strong>${j.date==='Dzisiaj'?'18':'19'}</strong></div><div class="grow"><h3>${j.role}</h3><p>${j.company} · ${j.time} · ${j.area}</p><strong>${j.rate*j.hours} zł</strong></div><button class="primary" onclick="openJob(${j.id})">Szczegóły</button></article>`).join(''):'<div class="empty">Nie masz jeszcze zaplanowanych zmian.</div>'}
+function switchView(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active-view',v.id===id));document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'smooth'})}
+function toast(msg){const t=document.querySelector('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200)}
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>switchView(b.dataset.view));
+document.querySelectorAll('.filter[data-filter]').forEach(b=>b.onclick=()=>{activeFilter=b.dataset.filter;document.querySelectorAll('.filter[data-filter]').forEach(x=>x.classList.toggle('active',x===b));renderJobs()});
+document.querySelector('#searchInput').oninput=renderJobs;document.querySelector('.modal-close').onclick=()=>modal.close();
+document.querySelector('#mapToggle').onclick=()=>toast('Widok mapy będzie dostępny w kolejnej wersji.');document.querySelector('#filterBtn').onclick=()=>toast('Podstawowe filtry daty są już aktywne powyżej.');
+renderJobs();renderBooked();
