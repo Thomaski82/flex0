@@ -35,10 +35,12 @@
         <div class="toolbar">
           <div class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Stanowisko lub miejsce" /></div>
           <button class="filter active" data-filter="all">Wszystkie</button><button class="filter" data-filter="today">Dzisiaj</button><button class="filter" data-filter="tomorrow">Jutro</button>
-          <button class="filter icon-filter" id="filterBtn">☷ <span>Filtry</span></button>
+          <button class="filter icon-filter" id="filterBtn">☷ <span>Filtry</span> <b id="filterCount"></b></button>
         </div>
 
-        <div class="section-heading"><div><p class="eyebrow">DOPASOWANE DO CIEBIE</p><h2>Zmiany w pobliżu</h2></div><button id="mapToggle">Mapa <span>↗</span></button></div>
+        <div class="location-bar"><div><span class="location-dot">⌖</span><div><small>OBSZAR WYSZUKIWANIA</small><strong id="locationLabel">Centrum Warszawy · do 10 km</strong></div></div><button id="quickLocate">Użyj mojej lokalizacji</button></div>
+        <div id="activeFilters" class="active-filters"></div>
+        <div class="section-heading"><div><p class="eyebrow">DOPASOWANE DO CIEBIE</p><h2><span id="resultCount">6</span> zmian w pobliżu</h2></div><div class="results-actions"><select id="sortSelect" aria-label="Sortowanie"><option value="recommended">Polecane</option><option value="nearest">Najbliżej</option><option value="rate">Najwyższa stawka</option><option value="newest">Najnowsze</option></select><button id="mapToggle">Mapa <span>↗</span></button></div></div>
         <div id="jobsGrid" class="jobs-grid"></div>
       </section>
 
@@ -60,7 +62,21 @@
   </div>
 
   <dialog id="jobModal"><button class="modal-close" aria-label="Zamknij">×</button><div id="modalContent"></div></dialog>
+  <dialog id="filterModal" class="filter-modal">
+    <form method="dialog" id="filterForm">
+      <div class="filter-header"><div><p class="eyebrow">DOPASUJ OFERTY</p><h2>Filtry wyszukiwania</h2></div><button class="modal-close" value="cancel" aria-label="Zamknij">×</button></div>
+      <div class="filter-content">
+        <section class="filter-section"><div class="filter-title"><h3>Lokalizacja</h3><span id="geoStatus">Centrum Warszawy</span></div><button type="button" class="locate-button" id="locateBtn"><span>◎</span><div><strong>Użyj mojej lokalizacji</strong><small>Znajdziemy zmiany najbliżej Ciebie</small></div></button><label class="range-label"><span>Promień wyszukiwania</span><strong><output id="radiusOutput">10</output> km</strong></label><input id="radiusInput" class="range" type="range" min="1" max="30" value="10" /></section>
+        <section class="filter-section"><h3>Minimalna stawka</h3><div class="rate-options"><label><input type="radio" name="rate" value="0" checked><span>Dowolna</span></label><label><input type="radio" name="rate" value="29"><span>od 29 zł</span></label><label><input type="radio" name="rate" value="31"><span>od 31 zł</span></label><label><input type="radio" name="rate" value="33"><span>od 33 zł</span></label></div></section>
+        <section class="filter-section"><h3>Branża</h3><div class="check-grid"><label><input type="checkbox" name="industry" value="horeca"><span>☕ HoReCa</span></label><label><input type="checkbox" name="industry" value="events"><span>✦ Eventy</span></label><label><input type="checkbox" name="industry" value="retail"><span>◼ Retail</span></label><label><input type="checkbox" name="industry" value="logistics"><span>⌂ Logistyka</span></label></div></section>
+        <section class="filter-section"><h3>Pora rozpoczęcia</h3><select id="timeFilter"><option value="all">Dowolna pora</option><option value="morning">Rano · przed 12:00</option><option value="afternoon">Popołudnie · 12:00–17:00</option><option value="evening">Wieczór · po 17:00</option></select></section>
+        <section class="filter-section"><h3>Wymagania</h3><div class="switch-list"><label><div><strong>Bez doświadczenia</strong><small>Pokaż oferty bez wymaganego doświadczenia</small></div><input id="noExperience" type="checkbox"></label><label><div><strong>Bez książeczki sanepidowskiej</strong><small>Ukryj oferty, które jej wymagają</small></div><input id="noSanepid" type="checkbox"></label><label><div><strong>Bez języka angielskiego</strong><small>Oferty bez wymogu znajomości angielskiego</small></div><input id="noEnglish" type="checkbox"></label></div></section>
+      </div>
+      <div class="filter-footer"><button type="button" id="clearFilters">Wyczyść</button><button type="submit" class="primary" id="applyFilters">Pokaż oferty</button></div>
+    </form>
+  </dialog>
   <div id="toast" role="status"></div>
   <script src="app.js"></script>
 </body>
 </html>
+
