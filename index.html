@@ -34,10 +34,11 @@
 
         <div class="toolbar">
           <div class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Stanowisko lub miejsce" /></div>
-          <button class="filter active" data-filter="all">Wszystkie</button><button class="filter" data-filter="today">Dzisiaj</button><button class="filter" data-filter="tomorrow">Jutro</button>
+          <button class="filter active" data-filter="all">Wszystkie</button><button class="filter" data-filter="monday">Poniedziałek</button><button class="filter" data-filter="tuesday">Wtorek</button>
           <button class="filter icon-filter" id="filterBtn">☷ <span>Filtry</span> <b id="filterCount"></b></button>
         </div>
 
+        <div class="ai-banner"><div class="ai-orb">✦</div><div><small>ASYSTENT FLEXO AI</small><strong>Opisz swój grafik, a znajdę pasujące zmiany</strong><span>Rozumiem kilka przedziałów godzinowych, stawki i preferencje.</span></div><button id="openAssistant">Znajdź za mnie →</button></div>
         <div class="location-bar"><div><span class="location-dot">⌖</span><div><small>OBSZAR WYSZUKIWANIA</small><strong id="locationLabel">Centrum Warszawy · do 10 km</strong></div></div><button id="quickLocate">Użyj mojej lokalizacji</button></div>
         <div id="activeFilters" class="active-filters"></div>
         <div class="section-heading"><div><p class="eyebrow">DOPASOWANE DO CIEBIE</p><h2><span id="resultCount">6</span> zmian w pobliżu</h2></div><div class="results-actions"><select id="sortSelect" aria-label="Sortowanie"><option value="recommended">Polecane</option><option value="nearest">Najbliżej</option><option value="rate">Najwyższa stawka</option><option value="newest">Najnowsze</option></select><button id="mapToggle">Mapa <span>↗</span></button></div></div>
@@ -68,13 +69,19 @@
       <div class="filter-content">
         <section class="filter-section"><div class="filter-title"><h3>Lokalizacja</h3><span id="geoStatus">Centrum Warszawy</span></div><button type="button" class="locate-button" id="locateBtn"><span>◎</span><div><strong>Użyj mojej lokalizacji</strong><small>Znajdziemy zmiany najbliżej Ciebie</small></div></button><label class="range-label"><span>Promień wyszukiwania</span><strong><output id="radiusOutput">10</output> km</strong></label><input id="radiusInput" class="range" type="range" min="1" max="30" value="10" /></section>
         <section class="filter-section"><h3>Minimalna stawka</h3><div class="rate-options"><label><input type="radio" name="rate" value="0" checked><span>Dowolna</span></label><label><input type="radio" name="rate" value="29"><span>od 29 zł</span></label><label><input type="radio" name="rate" value="31"><span>od 31 zł</span></label><label><input type="radio" name="rate" value="33"><span>od 33 zł</span></label></div></section>
-        <section class="filter-section"><h3>Branża</h3><div class="check-grid"><label><input type="checkbox" name="industry" value="horeca"><span>☕ HoReCa</span></label><label><input type="checkbox" name="industry" value="events"><span>✦ Eventy</span></label><label><input type="checkbox" name="industry" value="retail"><span>◼ Retail</span></label><label><input type="checkbox" name="industry" value="logistics"><span>⌂ Logistyka</span></label></div></section>
+        <section class="filter-section"><h3>Branża</h3><div class="check-grid"><label><input type="checkbox" name="industry" value="office"><span>▤ Biuro</span></label><label><input type="checkbox" name="industry" value="events"><span>✦ Eventy</span></label><label><input type="checkbox" name="industry" value="retail"><span>◼ Retail</span></label><label><input type="checkbox" name="industry" value="logistics"><span>⌂ Logistyka</span></label><label><input type="checkbox" name="industry" value="field"><span>◎ Praca terenowa</span></label></div></section>
         <section class="filter-section"><h3>Pora rozpoczęcia</h3><select id="timeFilter"><option value="all">Dowolna pora</option><option value="morning">Rano · przed 12:00</option><option value="afternoon">Popołudnie · 12:00–17:00</option><option value="evening">Wieczór · po 17:00</option></select></section>
-        <section class="filter-section"><h3>Wymagania</h3><div class="switch-list"><label><div><strong>Bez doświadczenia</strong><small>Pokaż oferty bez wymaganego doświadczenia</small></div><input id="noExperience" type="checkbox"></label><label><div><strong>Bez książeczki sanepidowskiej</strong><small>Ukryj oferty, które jej wymagają</small></div><input id="noSanepid" type="checkbox"></label><label><div><strong>Bez języka angielskiego</strong><small>Oferty bez wymogu znajomości angielskiego</small></div><input id="noEnglish" type="checkbox"></label></div></section>
+        <section class="filter-section"><h3>Wymagania</h3><div class="switch-list"><label><div><strong>Bez doświadczenia</strong><small>Pokaż oferty bez wymaganego doświadczenia</small></div><input id="noExperience" type="checkbox"></label><label><div><strong>Bez języka angielskiego</strong><small>Oferty bez wymogu znajomości angielskiego</small></div><input id="noEnglish" type="checkbox"></label></div></section>
       </div>
       <div class="filter-footer"><button type="button" id="clearFilters">Wyczyść</button><button type="submit" class="primary" id="applyFilters">Pokaż oferty</button></div>
     </form>
   </dialog>
+  <dialog id="assistantModal" class="assistant-modal">
+    <div class="assistant-head"><div class="ai-orb">✦</div><div><strong>Asystent Flexo</strong><small>Dobiorę zmiany do Twojego grafiku</small></div><button class="modal-close" aria-label="Zamknij">×</button></div>
+    <div id="assistantChat" class="assistant-chat"><div class="chat-message bot">Cześć! Napisz, kiedy możesz pracować. Możesz dodać stawkę, branżę albo odległość.<div class="prompt-examples"><button>Mam czas w poniedziałek od 8–10, a potem 16–20</button><button>Wtorek po 17, minimum 31 zł za godzinę</button><button>Praca biurowa do 5 km w poniedziałek</button></div></div></div>
+    <form id="assistantForm" class="assistant-input"><textarea id="assistantPrompt" rows="2" placeholder="Np. w poniedziałek 8–10 i 16–20…"></textarea><button type="submit" aria-label="Wyślij">↑</button></form>
+  </dialog>
+  <button id="assistantFab" class="assistant-fab"><span>✦</span><b>Asystent AI</b></button>
   <div id="toast" role="status"></div>
   <script src="app.js"></script>
 </body>
