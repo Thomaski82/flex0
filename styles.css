@@ -56,4 +56,5 @@
 @media(max-width:420px){
  main{padding-left:12px;padding-right:12px}.admin-stats,.employer-stats{grid-template-columns:1fr}.location-bar{grid-template-columns:1fr}.location-actions{display:flex;width:100%}.location-actions button{flex:1}.ai-banner{grid-template-columns:auto minmax(0,1fr)}.ai-banner button{grid-column:1/-1;width:100%;font-size:11px}.ai-banner button:after{content:none}.modal-details{grid-template-columns:1fr}.map-controls>label{min-width:115px}.map-footer>div:nth-child(2){min-width:70px}.map-footer #applyMapArea{min-width:140px}.admin-detail-head{align-items:flex-start}.admin-detail-head .avatar{width:52px;height:52px}
 }
+@media(max-width:700px){#mapFitJobs{background:#e8f6ee;color:var(--green);border-color:#b9d8ca}.leaflet-control-zoom a{width:38px!important;height:38px!important;line-height:38px!important;font-size:23px!important}.leaflet-control-zoom{margin-top:10px!important;margin-left:10px!important}.leaflet-touch .leaflet-bar{border-width:1px}.map-controls{overflow:visible}.map-controls #mapFitJobs{white-space:nowrap}}
 
