@@ -104,4 +104,26 @@
 
 .photo-required-actions{display:flex;flex-wrap:wrap;align-items:center}.photo-required-upload{align-items:flex-start}.photo-required-upload>.photo-required-actions{flex:1}@media(max-width:420px){.photo-required-actions{display:grid;grid-template-columns:1fr;width:100%}.photo-required-actions .photo-upload{justify-content:center;margin-right:0!important}}
 
+/* Mobile-first map: map before controls and no horizontal overflow */
+@media(max-width:700px){
+ body,button,input,select,textarea{max-width:100%}
+ .toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto auto;overflow:visible;margin-left:0;margin-right:0;padding:0}
+ .toolbar .search{min-width:0;max-width:none}.toolbar .filter{padding-left:11px;padding-right:11px}
+ .location-bar,.section-heading,.results-actions,.ai-banner,.job-card,.job-body{min-width:0;max-width:100%}
+ .map-modal .map-head{order:1}
+ .map-modal #jobsMap{order:2;flex:0 0 clamp(250px,42dvh,390px);width:100%;min-height:250px}
+ .map-modal .route-summary{order:3;position:relative;left:auto;bottom:auto;transform:none;width:auto;margin:8px 10px 0}
+ .map-modal .map-controls{order:4;max-height:190px;overflow-y:auto}
+ .map-modal .map-footer{order:5;margin-top:auto}
+ .map-controls>button{flex:1 1 125px}.map-controls>label{flex:1 1 145px}
+ .travel-modes{flex:1 0 100%}
+ .jobs-grid{width:100%}.job-card{width:100%}.job-footer{flex-wrap:wrap}
+}
+@media(max-width:420px){
+ .toolbar{grid-template-columns:minmax(0,1fr) auto}.toolbar .search{grid-column:1/-1}.toolbar .filter{width:100%}
+ .map-modal #jobsMap{flex-basis:38dvh;min-height:230px}
+ .map-controls>button{flex-basis:calc(50% - 5px)}
+ .map-footer{grid-template-columns:1fr}.map-footer>div:nth-child(2){display:none}.map-footer #applyMapArea{min-width:0}
+}
+
 
