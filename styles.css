@@ -178,6 +178,7 @@ body{background:radial-gradient(circle at 82% -12%,rgba(49,91,214,.075),transpar
 .map-controls,.map-modal .map-controls{background:#f0f3f8}.map-controls>button{border-color:#d3dbea;color:#29498c}.map-controls>button:hover{background:#e6ebf5}.payment-total{background:linear-gradient(90deg,#e8edf7,#f4fbdc)}
 .bottom-nav button.active{color:#173f91}
 @media(max-width:700px){body{background:#f6f7fa}.mobile-header{background:rgba(246,247,250,.93);border-bottom-color:#e2e6ee}}
+.sidebar a.nav-item{text-decoration:none}.mobile-info-link{display:none}@media(max-width:700px){.mobile-info-link{display:inline-flex;margin-left:auto;margin-right:9px;padding:7px 9px;border:1px solid #d4dbe8;border-radius:9px;color:var(--ink);text-decoration:none;font-size:10px;font-weight:800}}
 
 
 
