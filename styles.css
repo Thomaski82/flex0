@@ -164,5 +164,20 @@ body{background:radial-gradient(circle at 86% -8%,rgba(36,87,255,.12),transparen
 .bottom-nav{border-color:#dce2f0;box-shadow:0 -9px 30px rgba(16,25,67,.1)}.bottom-nav button.active{color:var(--green)}
 @media(max-width:700px){body{background:radial-gradient(circle at 100% 0,rgba(36,87,255,.12),transparent 21rem),#f7f8fc}.mobile-header{background:rgba(247,248,252,.9);border-bottom-color:#e3e7f2}.map-modal .map-controls{background:#f2f5ff}}
 
+/* Refined brand: Navy first, lime accent, unified offers */
+:root{--ink:#0b1739;--green:#173f91;--mint:#e4eafa;--lime:#d8ff45;--paper:#f4f6fa;--muted:#68738a;--line:#dde2ec;--blue:#315bd6;--shadow:0 16px 40px rgba(11,23,57,.11)}
+body{background:radial-gradient(circle at 82% -12%,rgba(49,91,214,.075),transparent 32rem),var(--paper)}
+.sidebar{background:linear-gradient(180deg,#091431 0%,#0b1b45 62%,#10275d 100%);box-shadow:10px 0 35px rgba(11,23,57,.14)}.brand span{background:var(--lime);box-shadow:0 8px 24px rgba(216,255,69,.2)}.nav-item.active{background:rgba(255,255,255,.095)}
+.hero h1 span,.eyebrow{color:#254ea8}.week-card{background:linear-gradient(135deg,#0b1739,#132b65);box-shadow:0 18px 42px rgba(11,23,57,.2)}
+.ai-banner{background:linear-gradient(118deg,#0b1739 0%,#122b66 72%,#173f91 100%);box-shadow:0 18px 42px rgba(11,23,57,.17)}
+.job-card,.job-card:nth-child(3n+2),.job-card:nth-child(3n+3){border-color:#dfe4ed;background:#fff}.job-cover,.job-card:nth-child(3n+2) .job-cover,.job-card:nth-child(3n+3) .job-cover{background:linear-gradient(135deg,#e4e9f4 0%,#f0f3f8 100%)!important;border-bottom:1px solid #dfe4ed}.company-logo{color:var(--ink);border:1px solid #d7deea;box-shadow:0 6px 18px rgba(11,23,57,.08)}.match{background:var(--lime);color:#1c2a00}.job-card:hover{border-color:#b8c4dc;box-shadow:0 18px 42px rgba(11,23,57,.12)}.job-card.urgent{border-color:#f2b8aa}.job-card.urgent .job-cover{background:linear-gradient(135deg,#eceff5,#f5f1ef)!important}
+.job-footer strong{color:var(--ink)}.job-footer button,.primary,.book-button,.candidate-confirm-main,.auth-submit,.rate-assistant button{background:var(--ink);box-shadow:0 8px 20px rgba(11,23,57,.18)}.job-footer button:hover,.primary:hover,.book-button:hover,.candidate-confirm-main:hover,.auth-submit:hover{background:#152a60;box-shadow:0 11px 25px rgba(11,23,57,.24)}
+.filter.active{background:var(--ink);border-color:var(--ink)}.location-dot,.assistant-fab,.map-job-popup button{background:var(--ink)}.location-bar{background:#e9edf6;border-color:#d1d9e8}.location-bar small,.location-bar button{color:#25498f}.active-filters .filter-chip,.travel-time{background:#edf0f7!important;border-color:#d6deeb!important;color:#34518c!important}
+.requirement-tag{background:#f1f3f7!important;color:#59647a!important}.positions-badge,.team-detail,.team-progress,.rate-assistant,.worker-contact-after-match{background:#eef1f7!important;border-color:#d6deeb!important}.rate-assistant{box-shadow:inset 4px 0 0 var(--lime)}.rate-assistant small{color:#254ea8}
+.admin-stats article>span{background:#e8ecf5;color:#173f91}.status.available,.status.active{background:#e8edf8;color:#173f91}.status.accepted,.status.confirmed{background:var(--lime);color:#263500}.status.completed{background:#e2e8f6;color:#29498c}
+.map-controls,.map-modal .map-controls{background:#f0f3f8}.map-controls>button{border-color:#d3dbea;color:#29498c}.map-controls>button:hover{background:#e6ebf5}.payment-total{background:linear-gradient(90deg,#e8edf7,#f4fbdc)}
+.bottom-nav button.active{color:#173f91}
+@media(max-width:700px){body{background:#f6f7fa}.mobile-header{background:rgba(246,247,250,.93);border-bottom-color:#e2e6ee}}
+
 
 
