@@ -24,12 +24,14 @@
         <button class="nav-item admin-link" data-view="admin" hidden><span>⚙</span>Panel admina</button>
         <a class="nav-item marketing-link" href="marketing.html"><span>?</span>Jak działa Temporeo</a>
       </nav>
-      <div class="trust-card"><span>✓</span><div><strong>Profil zweryfikowany</strong><small>Możesz brać zmiany</small></div></div>
+      <div class="trust-card"><span id="trustCardIcon">◎</span><div><strong id="trustCardTitle">Tryb gościa</strong><small id="trustCardText">Oferty możesz przeglądać bez konta</small></div></div>
+      <div class="guest-auth-actions" hidden><button type="button" id="guestLoginBtn">Zaloguj się</button><button type="button" id="guestRegisterBtn">Załóż konto</button></div>
       <div class="sidebar-user"><div class="avatar">ŁK</div><div><strong>Łukasz</strong><small>Warszawa</small></div><button id="accountAction" title="Konto">•••</button></div>
     </aside>
 
     <main>
       <header class="mobile-header"><a class="brand" href="#discover" data-home><span>t</span>temporeo</a><a class="mobile-info-link" href="marketing.html">Jak działa</a><button class="avatar" id="mobileAccountAction">ŁK</button></header>
+      <div class="guest-auth-banner" hidden><div><strong>Przeglądasz jako gość</strong><small>Konto jest potrzebne dopiero przy zgłoszeniu na zmianę.</small></div><button type="button" id="mobileLoginBtn">Zaloguj się</button><button type="button" id="mobileRegisterBtn">Załóż konto</button></div>
       <section id="discover" class="view active-view">
         <div class="hero">
           <div><p class="eyebrow" id="currentDate">Dzisiaj</p><h1><span id="heroGreeting">Cześć!</span> <span>👋</span><br>Masz dziś chwilę?</h1><p>Wybierz krótką zmianę w pobliżu i zarób jeszcze dzisiaj.</p></div>
