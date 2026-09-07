@@ -167,6 +167,16 @@ body{background:radial-gradient(circle at 86% -8%,rgba(36,87,255,.12),transparen
 /* Refined brand: Navy first, lime accent, unified offers */
 :root{--ink:#0b1739;--green:#173f91;--mint:#e4eafa;--lime:#d8ff45;--paper:#f4f6fa;--muted:#68738a;--line:#dde2ec;--blue:#315bd6;--shadow:0 16px 40px rgba(11,23,57,.11)}
 body{background:radial-gradient(circle at 82% -12%,rgba(49,91,214,.075),transparent 32rem),var(--paper)}
+
+.match-fee-preview{border:1px solid rgba(36,87,245,.22);background:linear-gradient(135deg,rgba(36,87,245,.08),rgba(199,240,0,.12))}
+.match-fee-preview strong{color:#0b1736}
+.anti-circumvention-badge{display:inline-flex;align-items:center;justify-content:center;padding:.45rem .7rem;border-radius:999px;background:#0b1736;color:#fff;font-size:.72rem;font-weight:800;white-space:nowrap}
+@media(max-width:700px){.match-fee-preview{align-items:flex-start}.anti-circumvention-badge{white-space:normal;text-align:center}}
+.location-form-section{display:grid;gap:.7rem;padding:1rem;border:1px solid #dbe3f2;border-radius:18px;background:#f7f9fd}
+.location-form-section>small{font-weight:800;letter-spacing:.09em;color:#2457f5}
+.location-validation-note{margin:0;color:#66718b;font-size:.78rem;line-height:1.45}
+.location-form-section select:disabled{background:#edf0f5;color:#8992a4;cursor:not-allowed}
+.form-content label>small{display:block;margin-top:.35rem;color:#66718b;font-size:.75rem;line-height:1.35}
 .sidebar{background:linear-gradient(180deg,#091431 0%,#0b1b45 62%,#10275d 100%);box-shadow:10px 0 35px rgba(11,23,57,.14)}.brand span{background:var(--lime);box-shadow:0 8px 24px rgba(216,255,69,.2)}.nav-item.active{background:rgba(255,255,255,.095)}
 .hero h1 span,.eyebrow{color:#254ea8}.week-card{background:linear-gradient(135deg,#0b1739,#132b65);box-shadow:0 18px 42px rgba(11,23,57,.2)}
 .ai-banner{background:linear-gradient(118deg,#0b1739 0%,#122b66 72%,#173f91 100%);box-shadow:0 18px 42px rgba(11,23,57,.17)}
