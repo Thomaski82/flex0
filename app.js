@@ -382,6 +382,69 @@ const feeMigrationKey='temporeo-match-fee-model-v2';if(!localStorage.getItem(fee
 document.querySelectorAll('.bank-profile-section,.settlement-profile-section').forEach(section=>section.hidden=true);
 const renderExtendedProfileMatchOnlyBase=renderExtendedProfile;renderExtendedProfile=function(){renderExtendedProfileMatchOnlyBase();document.querySelectorAll('#profile .extended-profile-data>div').forEach(card=>{const label=card.querySelector('small')?.textContent||'';if(label.includes('STATUS ROZLICZENIOWY')||label.includes('RACHUNEK DO WYPŁATY'))card.remove()})};renderProfile();
 renderAdminJobs();
+
+/* Accessibility matching v3: who the offer suits, practical tasks and simple adjustments. */
+const ACCESSIBILITY_MATCH_GROUPS=[
+ {key:'people',title:'Ta oferta jest odpowiednia dla',workerTitle:'Który opis dotyczy Ciebie?',hint:'Pracodawca zobaczy wybrane informacje dopiero po Twoim zgłoszeniu.',options:[
+  ['hardOfHearing','Osoba niedosłysząca'],['deaf','Osoba głucha'],['lowVision','Osoba słabowidząca'],['limitedMobility','Osoba z ograniczoną sprawnością ruchową'],['limitedManual','Osoba z ograniczoną sprawnością manualną'],['structuredWork','Osoba najlepiej pracująca przy jasno określonych zadaniach'],['individualAgreement','Inna sytuacja — po indywidualnym uzgodnieniu']
+ ]},
+ {key:'tasks',title:'Czynności występujące w tej pracy',workerTitle:'Jakie czynności możesz wykonywać?',hint:'Wybierz tylko czynności, które rzeczywiście występują w zleceniu.',options:[
+  ['taskPacking','Pakowanie'],['taskShelves','Wykładanie towaru'],['taskSorting','Sortowanie'],['taskPicking','Kompletowanie zamówień'],['taskLabelling','Etykietowanie'],['taskInventory','Inwentaryzacja'],['taskScanner','Obsługa skanera'],['taskProduction','Proste prace produkcyjne'],['taskCleaning','Sprzątanie'],['taskMaterials','Przygotowanie materiałów']
+ ]},
+ {key:'support',title:'Co zapewnia stanowisko?',workerTitle:'Jakich warunków potrzebujesz?',hint:'Te informacje pomagają przygotować stanowisko i sposób przekazywania zadań.',options:[
+  ['textInstructions','Instrukcje przekazywane również tekstowo'],['noPhoneRequired','Brak konieczności rozmów telefonicznych'],['visualSafety','Wizualne sygnały i komunikaty bezpieczeństwa'],['faceToFace','Możliwość komunikacji twarzą w twarz'],['stationTraining','Krótki instruktaż na stanowisku'],['contactPerson','Wyznaczona osoba kontaktowa na zmianie'],['clearTaskList','Jasna lista i kolejność zadań'],['lowerNoise','Możliwość pracy w miejscu o mniejszym hałasie'],['goodLighting','Dobre, równomierne oświetlenie'],['stepFreeRoute','Dostęp do stanowiska bez schodów']
+ ]}
+];
+const ACCESSIBILITY_MATCH_OPTIONS=ACCESSIBILITY_MATCH_GROUPS.flatMap(group=>group.options.map(option=>[...option,group.key]));
+ACCESSIBILITY_OPTIONS.splice(0,ACCESSIBILITY_OPTIONS.length,...ACCESSIBILITY_MATCH_OPTIONS);
+
+function accessibilityWorkerSelect(key){
+ const group=ACCESSIBILITY_MATCH_OPTIONS.find(option=>option[0]===key)?.[2];
+ if(group==='people')return '<option value="none">Nie dotyczy</option><option value="required">Dotyczy mnie</option><option value="discuss">Wolę omówić</option>';
+ if(group==='tasks')return '<option value="none">Nie wykonuję</option><option value="preferred">Mogę wykonywać</option><option value="required">Preferuję takie zadania</option>';
+ return '<option value="none">Nie potrzebuję</option><option value="preferred">Pomocne</option><option value="required">Potrzebne</option><option value="discuss">Do uzgodnienia</option>';
+}
+function accessibilityEmployerSelect(group){
+ if(group==='people')return '<option value="unknown">Nie określono</option><option value="yes">Tak, oferta jest odpowiednia</option><option value="no">Nie, charakter pracy na to nie pozwala</option><option value="discuss">Możliwe po uzgodnieniu</option>';
+ if(group==='tasks')return '<option value="unknown">Nie występuje</option><option value="yes">Występuje w tej pracy</option><option value="discuss">Może wystąpić</option>';
+ return '<option value="unknown">Brak informacji</option><option value="yes">Zapewniamy</option><option value="no">Nie zapewniamy</option><option value="discuss">Do uzgodnienia</option>';
+}
+function accessibilityEmployerHint(group){return group==='people'?'Zaznacz, dla kogo ta konkretna praca jest odpowiednia.':group==='tasks'?'Wybierz tylko czynności, które rzeczywiście występują w zleceniu.':'Określ warunki, które firma faktycznie może zapewnić na tej zmianie.'}
+function rebuildAccessibilityExperience(){
+ const profileSection=document.querySelector('#profileCompletionForm .accessibility-profile-section'),passport=profileSection?.querySelector('.accessibility-passport');
+ if(profileSection){
+  const optIn=profileSection.querySelector('.disability-opt-in span');
+  if(optIn)optIn.innerHTML='<strong>Chcę korzystać z dopasowania ofert dostępnych</strong><small>Dobrowolnie określ, jakie oferty i zadania są dla Ciebie odpowiednie. Pracodawca zobaczy ten profil dopiero, gdy zgłosisz się do jego oferty.</small>';
+  const privacy=profileSection.querySelector('.profile-privacy-note');
+  if(privacy)privacy.textContent='Nie pytamy o dokumentację ani szczegóły medyczne. Dopasowujemy rodzaj pracy, zadania i warunki stanowiska.';
+ }
+ if(passport)passport.innerHTML=`<legend>Dopasowanie ofert dostępnych</legend><p>Wskaż, jakie zadania możesz wykonywać i co pozwala Ci komfortowo pracować.</p>${ACCESSIBILITY_MATCH_GROUPS.map(group=>`<section class="accessibility-form-group ${group.key}"><div><strong>${group.workerTitle}</strong><small>${group.hint}</small></div><div class="accessibility-passport-grid">${group.options.map(([key,label])=>`<label><span>${label}</span><select name="need_${key}">${accessibilityWorkerSelect(key)}</select></label>`).join('')}</div></section>`).join('')}`;
+ const jobSection=document.querySelector('#adminJobForm .accessible-job-section'),mirror=jobSection?.querySelector('.employer-accessibility-mirror');
+ if(jobSection){
+  const toggle=jobSection.querySelector('.terms-check span');
+  if(toggle)toggle.innerHTML='<strong>Oferta odpowiednia również dla osób z niepełnosprawnościami</strong><small>Wskaż grupy kandydatów, rzeczywiste zadania i zapewniane warunki. Dzięki temu kandydat od razu zobaczy, czy oferta jest dla niego.</small>';
+ }
+ if(mirror)mirror.innerHTML=`<div class="mirror-head"><strong>Dopasowanie dostępności stanowiska</strong><small>Opisz, dla kogo odpowiednia jest praca i jak wygląda w praktyce.</small></div>${ACCESSIBILITY_MATCH_GROUPS.map(group=>`<section class="accessibility-form-group ${group.key}"><div><strong>${group.title}</strong><small>${accessibilityEmployerHint(group.key)}</small></div><div class="employer-accessibility-grid">${group.options.map(([key,label])=>`<label><span>${label}</span><select name="jobAccess_${key}">${accessibilityEmployerSelect(group.key)}</select></label>`).join('')}</div></section>`).join('')}<label class="accessibility-employer-note">Dodatkowa informacja dla kandydata<textarea name="accessibilityDescriptionV2" rows="3" maxlength="400" placeholder="Np. brygadzista przekazuje zadania na piśmie, skaner pokazuje komunikaty wizualne, na hali pracują wózki widłowe"></textarea></label>`;
+ profileSection?.updateDisabilityVisibility?.();jobSection?.updateAccessibilityMirror?.();
+}
+
+accessibilityMatch=function(job,profile=userProfile){
+ if(!profile?.disabilityOptIn)return null;
+ if(!job?.accessibleJob)return{status:'unknown',met:[],missing:[],discuss:['Pracodawca nie opisał jeszcze dostępności stanowiska']};
+ const priorities=profile.accessibilityPriorities||{},answers=job.jobAccessibility||{},met=[],missing=[],discuss=[];
+ const people=ACCESSIBILITY_MATCH_GROUPS[0].options.filter(([key])=>['required','preferred','discuss'].includes(priorities[key]));
+ people.forEach(([key,label])=>{const answer=answers[key]||'unknown';if(answer==='yes')met.push(`Oferta wskazana dla: ${label.toLowerCase()}`);else if(answer==='no')missing.push(`${label} — pracodawca oznaczył ofertę jako niedopasowaną`);else discuss.push(`${label} — ${answer==='discuss'?'możliwe po uzgodnieniu':'brak deklaracji pracodawcy'}`)});
+ const workerTasks=ACCESSIBILITY_MATCH_GROUPS[1].options.filter(([key])=>['required','preferred'].includes(priorities[key])),jobTasks=ACCESSIBILITY_MATCH_GROUPS[1].options.filter(([key])=>answers[key]==='yes');
+ const taskOverlap=workerTasks.filter(([key])=>answers[key]==='yes');
+ if(taskOverlap.length)met.push(`Zgodne zadania: ${taskOverlap.map(([,label])=>label.toLowerCase()).join(', ')}`);
+ else if(workerTasks.length&&jobTasks.length)discuss.push('Brak wskazanego wspólnego zadania — sprawdź opis obowiązków');
+ ACCESSIBILITY_MATCH_GROUPS[2].options.forEach(([key,label])=>{const need=priorities[key]||'none';if(need==='none')return;const answer=answers[key]||'unknown';if(answer==='yes')met.push(label);else if(answer==='no'&&need==='required')missing.push(label);else discuss.push(`${label} — ${answer==='no'?'pracodawca nie zapewnia':answer==='discuss'?'do uzgodnienia':'brak informacji'}`)});
+ return{status:missing.length?'conflict':discuss.length?'confirm':'matched',met,missing,discuss};
+};
+accessibilityMatchHtml=function(job,profile=userProfile){const match=accessibilityMatch(job,profile);if(!match)return'';const titles={matched:'Oferta pasuje do Twojego profilu',conflict:'Oferta ma istotne niedopasowanie',confirm:'Sprawdź warunki przed zgłoszeniem',unknown:'Pracodawca nie opisał dostępności'};return`<section class="accessibility-match ${match.status}"><div><strong>♿ ${titles[match.status]}</strong></div>${match.met.length?`<p class="match-met">✓ ${match.met.join(' · ')}</p>`:''}${match.missing.length?`<p class="match-missing">! ${match.missing.join(' · ')}</p>`:''}${match.discuss.length?`<p class="match-discuss">? ${match.discuss.join(' · ')}</p>`:''}</section>`};
+rebuildAccessibilityExperience();
+populateProfileCompletion(registeredUsers.find(user=>user.email===authUser?.email)||userProfile);
+renderProfile();renderJobs();renderAdminJobs();
 function removeLegacyCommissionCopy(root=document.body){const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let node;while(node=walker.nextNode()){if(node.nodeValue.includes('12%'))node.nodeValue=node.nodeValue.replaceAll('12%','stała opłata za match')}}
 removeLegacyCommissionCopy();
 
@@ -578,7 +641,6 @@ function setEmployerCalendarMode(mode){employerCalendarMode=mode;employerCalenda
 function moveEmployerCalendar(step){employerCalendarOffset+=step;renderEmployerCalendar()}
 renderEmployerCalendar=function(){const panel=document.querySelector('#employer .admin-panel'),list=document.querySelector('#employerJobsList');if(!panel||!list)return;let toolbar=panel.querySelector('.employer-view-switch'),calendar=panel.querySelector('#employerCalendar');if(!toolbar){toolbar=document.createElement('div');toolbar.className='employer-view-switch';toolbar.innerHTML='<button data-jobs-view="list">☰ Lista</button><button data-jobs-view="calendar">▦ Kalendarz</button>';panel.querySelector('.panel-heading').after(toolbar);toolbar.querySelectorAll('button').forEach(button=>button.onclick=()=>setEmployerJobsView(button.dataset.jobsView))}if(!calendar){calendar=document.createElement('div');calendar.id='employerCalendar';calendar.className='employer-calendar-wrap';list.after(calendar)}toolbar.querySelectorAll('button').forEach(button=>button.classList.toggle('active',button.dataset.jobsView===employerJobsView));list.hidden=employerJobsView==='calendar';calendar.hidden=employerJobsView!=='calendar';if(calendar.hidden)return;const today=new Date();today.setHours(0,0,0,0);let start=new Date(today),count=7,stepLabel='tydzień';if(employerCalendarMode==='day'){start.setDate(start.getDate()+employerCalendarOffset);count=1;stepLabel='dzień'}else if(employerCalendarMode==='week'){start.setDate(start.getDate()+employerCalendarOffset*7)}else{start=new Date(today.getFullYear(),today.getMonth()+employerCalendarOffset,1);count=new Date(start.getFullYear(),start.getMonth()+1,0).getDate();stepLabel='miesiąc'}const days=[...Array(count)].map((_,index)=>{const date=new Date(start);date.setDate(date.getDate()+index);return date}),mine=jobs.filter(job=>job.ownerEmail===authUser?.email&&!jobIsArchived(job)),rangeLabel=employerCalendarMode==='day'?new Intl.DateTimeFormat('pl-PL',{weekday:'long',day:'numeric',month:'long'}).format(start):employerCalendarMode==='week'?`${new Intl.DateTimeFormat('pl-PL',{day:'numeric',month:'short'}).format(days[0])} – ${new Intl.DateTimeFormat('pl-PL',{day:'numeric',month:'short'}).format(days.at(-1))}`:new Intl.DateTimeFormat('pl-PL',{month:'long',year:'numeric'}).format(start);calendar.innerHTML=`<div class="calendar-controls"><div><button onclick="moveEmployerCalendar(-1)">‹</button><button onclick="employerCalendarOffset=0;renderEmployerCalendar()">Dzisiaj</button><button onclick="moveEmployerCalendar(1)">›</button></div><strong>${rangeLabel}</strong><div><button class="${employerCalendarMode==='day'?'active':''}" onclick="setEmployerCalendarMode('day')">Dzień</button><button class="${employerCalendarMode==='week'?'active':''}" onclick="setEmployerCalendarMode('week')">Tydzień</button><button class="${employerCalendarMode==='month'?'active':''}" onclick="setEmployerCalendarMode('month')">Miesiąc</button></div></div><div class="employer-calendar ${employerCalendarMode}">${days.map(date=>{const dateJobs=mine.filter(job=>nextShiftDate(job).toDateString()===date.toDateString()).sort((a,b)=>a.start-b.start);return`<section class="${date.toDateString()===today.toDateString()?'today':''}"><header><small>${new Intl.DateTimeFormat('pl-PL',{weekday:'short'}).format(date)}</small><strong>${date.getDate()}</strong></header><div>${dateJobs.length?dateJobs.map(job=>{const filled=filledPositions(job.id),positions=job.positions||1;return`<button onclick="previewManagedJob(${job.id})"><b>${job.time}</b><strong>${job.role}</strong><small>${filled}/${positions} obsadzonych</small><i style="width:${Math.round(filled/positions*100)}%"></i></button>`}).join(''):'<span class="calendar-empty">Brak zmian</span>'}</div></section>`}).join('')}</div>`};
 renderAdminJobs();
-
 
 
 
