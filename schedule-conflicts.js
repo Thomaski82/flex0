@@ -68,7 +68,7 @@ renderJobs=function(){
     const cover=card.querySelector('.job-cover');
     if(cover&&!cover.querySelector('.schedule-conflict-badge'))cover.insertAdjacentHTML('beforeend',`<span class="schedule-conflict-badge">${conflict.type==='overlap'?'KOLIZJA GODZIN':'BRAK CZASU NA DOJAZD'}</span>`);
     const footer=card.querySelector('.job-footer button');
-    if(footer)footer.textContent='Sprawdź konflikt';
+    if(footer)footer.textContent='Kolizja z Twoimi zmianami';
   });
 };
 
