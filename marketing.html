@@ -8,7 +8,7 @@
   <title>Temporeo — elastyczna praca i szybkie wsparcie dla firm</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="marketing.css">
 </head>
 <body>
@@ -112,6 +112,7 @@
   <script>
     document.querySelectorAll('[data-faq]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-faq]').forEach(item=>item.classList.toggle('active',item===button));document.querySelectorAll('.faq-list details').forEach(item=>item.hidden=button.dataset.faq!=='all'&&item.dataset.category!==button.dataset.faq)}));
   </script>
+  <script src="theme.js?v=theme-v3"></script>
 </body>
 </html>
 
