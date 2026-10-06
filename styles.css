@@ -365,3 +365,23 @@ html[data-theme="dark"] dialog .contract-paper{background:#f7f2e8!important;colo
 
 html[data-theme="dark"] dialog .employer-registration>p{background:#1b242a!important;color:#e3e7e9!important;border:1px solid #46525b!important}
 dialog .settlement-profile-section,dialog .bank-profile-section{border-radius:0!important}
+
+/* Complete worker-area pass: discover, shifts and every profile section. */
+#discover :is(.ai-banner,.ai-orb,.board-view-switch,.board-view-switch button,.board-map-panel,.job-card,.job-cover,.company-logo,.match,.job-meta span,.offer-deadline,.requirement-tag,.location-bar,.location-actions button,.results-actions button,.results-actions select),
+#booked :is(.tabs,.tab,.booked-card,.date-tile,.empty,.primary,.application-notice,.rate-employer-button),
+#profile :is(.profile-card,.avatar,.skill-tags span,.profile-grid .checklist,.extended-profile-data>div,.profile-accessibility-summary,.checkin-demo-button,.primary){border-radius:0!important}
+html[data-theme="dark"] #discover :is(.board-view-switch,.board-map-panel,.location-actions button,.results-actions button,.results-actions select){background:#151c21!important;color:#e3e7e9!important;border-color:#46525b!important;box-shadow:none!important}
+html[data-theme="dark"] #discover .board-view-switch button.active{background:var(--lime)!important;color:#1a1200!important;border-color:var(--lime)!important}
+html[data-theme="dark"] #discover :is(.job-card,.board-map-panel){background:#151c21!important;color:#f1f3f4!important;border-color:#3a444c!important}
+html[data-theme="dark"] #discover .job-cover{background:#222b31!important;color:#f1f3f4!important;border-color:#3a444c!important}
+html[data-theme="dark"] #discover .requirement-tag{background:#1b242a!important;color:#c6ced3!important;border:1px solid #46525b!important}
+html[data-theme="dark"] #discover .offer-deadline{background:#332912!important;color:#ffd77c!important;border-color:#806325!important}
+html[data-theme="dark"] #discover .offer-deadline small{color:#ffd77c!important}
+html[data-theme="dark"] #discover :is(#quickLocate,#clearLocation){background:#1b242a!important;color:#e3e7e9!important;border-color:#53606a!important}
+html[data-theme="dark"] #booked :is(.booked-card,.empty,.application-notice){background:#151c21!important;color:#f1f3f4!important;border-color:#3a444c!important;box-shadow:none!important}
+html[data-theme="dark"] #booked :is(.tabs,.tab){background:transparent!important;color:#aeb7bd!important;border-color:#3a444c!important}
+html[data-theme="dark"] #booked .tab.active{color:var(--lime)!important;border-color:var(--lime)!important}
+html[data-theme="dark"] #profile :is(.profile-card,.profile-grid .checklist,.extended-profile-data>div,.profile-accessibility-summary){background:#151c21!important;color:#f1f3f4!important;border-color:#3a444c!important;box-shadow:none!important}
+html[data-theme="dark"] #profile .skill-tags span{background:#18251f!important;color:#8ee0b6!important;border:1px solid #315b48!important}
+html[data-theme="dark"] #profile .checkin-demo-button{background:#1b242a!important;color:var(--lime)!important;border-color:#53606a!important;box-shadow:none!important}
+html[data-theme="dark"] #profile :is(.profile-bio,.profile-grid small,.extended-profile-data p){color:#aeb7bd!important}
