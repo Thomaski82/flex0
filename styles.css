@@ -320,3 +320,13 @@ html[data-theme="dark"] :is(.admin-job-icon,.attention-list article>span,.date-t
 html[data-theme="dark"] .contract-paper{background:#f7f2e8!important;color:#1c2622!important}
 html[data-theme="dark"] ::-webkit-scrollbar{width:11px;height:11px}html[data-theme="dark"] ::-webkit-scrollbar-track{background:#0e1418}html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:#46525b;border:2px solid #0e1418}
 
+/* Employer offer costs: square geometry and explicit dark surfaces. */
+.job-costs>span,.job-costs .fee,.job-costs .total,.billing-summary,.payment-remaining{border-radius:0!important}
+html[data-theme="dark"] .job-costs>span{background:#1b242a!important;color:#f1f3f4!important;border:1px solid #3f4a52}
+html[data-theme="dark"] .job-costs>span small{color:#aeb7bd!important}
+html[data-theme="dark"] .job-costs .fee{background:#18251f!important;color:#8ee0b6!important;border-color:#315b48!important}
+html[data-theme="dark"] .job-costs .fee small{color:#80c9a5!important}
+html[data-theme="dark"] .job-costs .total{background:#332912!important;color:#ffd77c!important;border-color:#806325!important}
+html[data-theme="dark"] .job-costs .total small{color:#e8bf68!important}
+html[data-theme="dark"] :is(.billing-summary,.payment-remaining){background:#1b242a!important;color:#f1f3f4!important;border-color:#46525b!important}
+
