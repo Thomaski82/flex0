@@ -364,3 +364,4 @@ html[data-theme="dark"] dialog .contract-paper{background:#f7f2e8!important;colo
 
 
 html[data-theme="dark"] dialog .employer-registration>p{background:#1b242a!important;color:#e3e7e9!important;border:1px solid #46525b!important}
+dialog .settlement-profile-section,dialog .bank-profile-section{border-radius:0!important}
