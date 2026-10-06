@@ -339,3 +339,7 @@ html[data-theme="dark"] #employer .management-tabs button{background:#1b242a!imp
 html[data-theme="dark"] #employer .management-tabs button:hover{background:#252f36!important;color:#fff!important;border-color:#6b7881!important}
 html[data-theme="dark"] #employer .management-tabs button.active{background:var(--lime)!important;color:#1a1200!important;border-color:var(--lime)!important;box-shadow:none!important}
 
+/* Keep language and appearance controls separated at every label width. */
+@media(min-width:701px){.language-switch{top:14px!important;right:18px!important}.theme-switch{top:68px!important;right:18px!important}}
+@media(max-width:700px){.language-switch{top:12px!important;right:12px!important}.theme-switch{position:static!important;inset:auto!important;margin:8px 0 14px!important;width:100%!important}}
+
