@@ -343,3 +343,22 @@ html[data-theme="dark"] #employer .management-tabs button.active{background:var(
 @media(min-width:701px){.language-switch{top:14px!important;right:18px!important}.theme-switch{top:68px!important;right:18px!important}}
 @media(max-width:700px){.language-switch{top:12px!important;right:12px!important}.theme-switch{position:static!important;inset:auto!important;margin:8px 0 14px!important;width:100%!important}}
 
+/* Final sub-screen consistency pass: every app dialog follows the square product system. */
+dialog,dialog *,dialog *::before,dialog *::after{border-radius:0!important}
+html[data-theme="dark"] dialog{background:#151c21!important;color:#f1f3f4!important;border-color:#69747c!important}
+html[data-theme="dark"] dialog :is(.filter-header,.filter-content,.filter-footer,.form-content,.modal-body,.assistant-head,.assistant-input,.auth-modal,.map-head,.map-controls,.map-footer,.review-form,.cancellation-form,.arrival-checkin-form,.candidate-profile-head,.candidate-profile-section,.legal-content,.payment-content,.templates-modal){background:#151c21!important;color:#f1f3f4!important;border-color:#3a444c!important}
+html[data-theme="dark"] dialog :is(.team-progress,.candidate-profile-stats>div,.candidate-fit,.auth-security,.cancellation-warning,.checkin-demo-note,.skill-conflict-note,.accessibility-profile-section,.profile-privacy-note,.disability-opt-in,.contract-warning,.payment-demo-note,.payment-summary,.payment-breakdown,.issue-submitted-note,.employer-issue-note,.legal-summary,.rating-summary){background:#1b242a!important;color:#e3e7e9!important;border-color:#46525b!important}
+html[data-theme="dark"] dialog :is(.team-progress,.candidate-profile-stats>div,.candidate-fit) small{color:#aeb7bd!important}
+html[data-theme="dark"] dialog :is(.candidate-row,.candidate-profile-stats>div,.candidate-fit,.candidate-profile-section,.review-grid label,.payment-row,.payment-summary>div,.contract-warning,.cancellation-warning,.arrival-checkin-form,.legal-content section){border-color:#46525b!important}
+html[data-theme="dark"] dialog .candidate-profile-section .skill-tags span{background:#18251f!important;color:#8ee0b6!important;border:1px solid #315b48!important}
+html[data-theme="dark"] dialog :is(button,.profile-button,.checkin-confirm,.checkin-demo-button,.photo-upload,.verification-back):not(.primary):not(.auth-submit):not(.book-button):not(.candidate-confirm-main){background:#1b242a!important;color:#e3e7e9!important;border:1px solid #53606a!important;box-shadow:none!important}
+html[data-theme="dark"] dialog :is(button,.profile-button,.checkin-confirm,.checkin-demo-button,.photo-upload,.verification-back):not(.primary):not(.auth-submit):not(.book-button):not(.candidate-confirm-main):hover{background:#27323a!important;color:#fff!important;border-color:#7a8790!important}
+html[data-theme="dark"] dialog :is(.primary,.auth-submit,.book-button,.candidate-confirm-main,.checkin-confirm,.payment-confirm,.review-submit){background:var(--lime)!important;color:#1a1200!important;border-color:var(--lime)!important;box-shadow:none!important}
+html[data-theme="dark"] dialog :is(input,textarea,select){background:#0e1418!important;color:#f1f3f4!important;border-color:#53606a!important}
+html[data-theme="dark"] dialog :is(.rate-options input:checked+span,.check-grid input:checked+span,.auth-tabs button.active,.profile-choice-grid input:checked+span,button.active){background:var(--lime)!important;color:#1a1200!important;border-color:var(--lime)!important}
+html[data-theme="dark"] dialog :is(.cancellation-warning,.contract-warning,.payment-demo-note,.checkin-demo-note,.issue-submitted-note){background:#332912!important;color:#ffd77c!important;border-color:#806325!important}
+html[data-theme="dark"] dialog :is(.cancellation-warning,.contract-warning,.payment-demo-note,.checkin-demo-note,.issue-submitted-note) :is(p,span,small,strong){color:inherit!important}
+html[data-theme="dark"] dialog .map-controls{background:#11181d!important}html[data-theme="dark"] dialog .map-head,html[data-theme="dark"] dialog .map-footer{background:#151c21!important}
+/* A paper contract and cartographic tiles intentionally keep their real-world appearance. */
+html[data-theme="dark"] dialog .contract-paper{background:#f7f2e8!important;color:#1c2622!important}html[data-theme="dark"] dialog #jobsMap{color:#1c2622}
+
