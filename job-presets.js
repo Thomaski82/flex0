@@ -16,6 +16,7 @@ const JOB_PRESETS=[
 
 const jobPresetForm=document.querySelector('#adminJobForm');
 const roleField=jobPresetForm?.elements.role;
+const currentRoleField=()=>jobPresetForm?.querySelector('[name="role"]');
 
 function jobPresetByRole(role){return JOB_PRESETS.find(item=>item.role===role)}
 function renderJobPresetPicker(selected=''){
@@ -26,7 +27,7 @@ function renderJobPresetPicker(selected=''){
 }
 function applyJobPreset(id,{fill=true}={}){
   const preset=JOB_PRESETS.find(item=>item.id===id);if(!preset||!jobPresetForm)return;
-  roleField.value=preset.role;renderJobPresetPicker(id);
+  currentRoleField().value=preset.role;renderJobPresetPicker(id);
   if(!fill)return;
   jobPresetForm.elements.industry.value=preset.industry;
   jobPresetForm.elements.customerFacing.checked=preset.customerFacing;
@@ -50,10 +51,10 @@ function setupJobPresetPicker(){
 
 setupJobPresetPicker();
 const openNewJobPresetBase=openNewJob;
-openNewJob=function(){openNewJobPresetBase();if(!jobPresetForm)return;roleField.value='';jobPresetForm.querySelector('.job-preset-picker select').value='all';jobPresetForm.querySelectorAll('[data-job-preset]').forEach(button=>button.hidden=false);renderJobPresetPicker('')};
+openNewJob=function(){openNewJobPresetBase();if(!jobPresetForm)return;currentRoleField().value='';jobPresetForm.querySelector('.job-preset-picker select').value='all';jobPresetForm.querySelectorAll('[data-job-preset]').forEach(button=>button.hidden=false);renderJobPresetPicker('')};
 const editAdminJobPresetBase=editAdminJob;
-editAdminJob=function(id){editAdminJobPresetBase(id);const preset=jobPresetByRole(roleField.value);renderJobPresetPicker(preset?.id||'')};
+editAdminJob=function(id){editAdminJobPresetBase(id);const preset=jobPresetByRole(currentRoleField().value);renderJobPresetPicker(preset?.id||'')};
 document.querySelector('#addJobBtn').onclick=openNewJob;
 document.querySelector('#employerAddJobBtn').onclick=openNewJob;
-jobPresetForm.addEventListener('submit',event=>{if(roleField.value.trim())return;event.preventDefault();event.stopImmediatePropagation();jobPresetForm.querySelector('.job-preset-picker').scrollIntoView({behavior:'smooth',block:'start'});toast('Najpierw wybierz stanowisko z katalogu.')},true);
+jobPresetForm.addEventListener('submit',event=>{if(currentRoleField().value.trim())return;event.preventDefault();event.stopImmediatePropagation();jobPresetForm.querySelector('.job-preset-picker').scrollIntoView({behavior:'smooth',block:'start'});toast('Najpierw wybierz stanowisko z katalogu.')},true);
 
