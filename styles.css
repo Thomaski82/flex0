@@ -362,3 +362,5 @@ html[data-theme="dark"] dialog .map-controls{background:#11181d!important}html[d
 /* A paper contract and cartographic tiles intentionally keep their real-world appearance. */
 html[data-theme="dark"] dialog .contract-paper{background:#f7f2e8!important;color:#1c2622!important}html[data-theme="dark"] dialog #jobsMap{color:#1c2622}
 
+
+html[data-theme="dark"] dialog .employer-registration>p{background:#1b242a!important;color:#e3e7e9!important;border:1px solid #46525b!important}
