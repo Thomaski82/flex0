@@ -27,7 +27,7 @@ function renderJobPresetPicker(selected=''){
 }
 function applyJobPreset(id,{fill=true}={}){
   const preset=JOB_PRESETS.find(item=>item.id===id);if(!preset||!jobPresetForm)return;
-  currentRoleField().value=preset.role;renderJobPresetPicker(id);
+  jobPresetForm.dataset.selectedRole=preset.role;currentRoleField().value=preset.role;renderJobPresetPicker(id);
   if(!fill)return;
   jobPresetForm.elements.industry.value=preset.industry;
   jobPresetForm.elements.customerFacing.checked=preset.customerFacing;
@@ -51,10 +51,11 @@ function setupJobPresetPicker(){
 
 setupJobPresetPicker();
 const openNewJobPresetBase=openNewJob;
-openNewJob=function(){openNewJobPresetBase();if(!jobPresetForm)return;currentRoleField().value='';jobPresetForm.querySelector('.job-preset-picker select').value='all';jobPresetForm.querySelectorAll('[data-job-preset]').forEach(button=>button.hidden=false);renderJobPresetPicker('')};
+openNewJob=function(){openNewJobPresetBase();if(!jobPresetForm)return;delete jobPresetForm.dataset.selectedRole;currentRoleField().value='';jobPresetForm.querySelector('.job-preset-picker select').value='all';jobPresetForm.querySelectorAll('[data-job-preset]').forEach(button=>button.hidden=false);renderJobPresetPicker('')};
 const editAdminJobPresetBase=editAdminJob;
-editAdminJob=function(id){editAdminJobPresetBase(id);const preset=jobPresetByRole(currentRoleField().value);renderJobPresetPicker(preset?.id||'')};
+editAdminJob=function(id){editAdminJobPresetBase(id);const preset=jobPresetByRole(currentRoleField().value);jobPresetForm.dataset.selectedRole=currentRoleField().value;renderJobPresetPicker(preset?.id||'')};
 document.querySelector('#addJobBtn').onclick=openNewJob;
 document.querySelector('#employerAddJobBtn').onclick=openNewJob;
-jobPresetForm.addEventListener('submit',event=>{if(currentRoleField().value.trim())return;event.preventDefault();event.stopImmediatePropagation();jobPresetForm.querySelector('.job-preset-picker').scrollIntoView({behavior:'smooth',block:'start'});toast('Najpierw wybierz stanowisko z katalogu.')},true);
+jobPresetForm.addEventListener('submit',event=>{const selected=jobPresetForm.dataset.selectedRole?.trim();if(selected){currentRoleField().value=selected;return}event.preventDefault();event.stopImmediatePropagation();jobPresetForm.querySelector('.job-preset-picker').scrollIntoView({behavior:'smooth',block:'start'});toast('Najpierw wybierz stanowisko z katalogu.')},true);
+new MutationObserver(()=>{const selected=jobPresetForm.dataset.selectedRole,field=currentRoleField();if(selected&&field&&field.value!==selected)field.value=selected}).observe(jobPresetForm,{childList:true,subtree:true});
 
