@@ -1,5 +1,10 @@
 /* Use the company profile address by default; reveal location fields only for another workplace. */
 const companyAddressUser=()=>registeredUsers.find(user=>user.email===authUser?.email&&user.role==='employer');
+function employerCompanyName(){
+  if(authUser?.role!=='employer')return'';
+  const user=companyAddressUser();
+  return (authUser.companyName||user?.companyName||`${authUser.firstName||user?.firstName||''} ${authUser.lastName||user?.lastName||''}`).trim();
+}
 function companyAddressData(){
   const user=companyAddressUser();if(!user)return null;
   const city=user.companyCity||'',area=user.companyArea||'',street=user.companyStreet||'',buildingNumber=user.companyBuildingNumber||'';
@@ -36,7 +41,7 @@ setupCompanyAddressJobForm();
 const validateJobLocationCompanyBase=validateJobLocationForm;
 validateJobLocationForm=function(form){const useCompany=!form.elements.differentJobAddress?.checked,profileAddress=companyAddressData(),phone=formatPolishPhone(form.elements.contactPhone.value);if(useCompany&&profileAddress){if(!phone)return toast('Podaj prawidłowy polski numer telefonu: 9 cyfr, opcjonalnie z prefiksem +48.'),null;return{...profileAddress,contactPhone:phone}}return validateJobLocationCompanyBase(form)};
 const openNewJobCompanyBase=openNewJob;
-openNewJob=function(){openNewJobCompanyBase();const form=document.querySelector('#adminJobForm'),address=companyAddressData(),section=form.querySelector('.location-form-section');if(authUser?.role==='employer'&&address){setJobCity(address.city,address.area,address.street);form.elements.buildingNumber.value=address.buildingNumber;form.elements.differentJobAddress.checked=false;if(authUser.companyName)form.elements.company.value=authUser.companyName}else form.elements.differentJobAddress.checked=true;section.updateCompanyAddress?.()};
+openNewJob=function(){openNewJobCompanyBase();const form=document.querySelector('#adminJobForm'),address=companyAddressData(),section=form.querySelector('.location-form-section'),companyName=employerCompanyName();if(companyName)form.elements.company.value=companyName;if(authUser?.role==='employer'&&address){setJobCity(address.city,address.area,address.street);form.elements.buildingNumber.value=address.buildingNumber;form.elements.differentJobAddress.checked=false}else form.elements.differentJobAddress.checked=true;section.updateCompanyAddress?.()};
 const editAdminJobCompanyBase=editAdminJob;
 editAdminJob=function(id){editAdminJobCompanyBase(id);const form=document.querySelector('#adminJobForm'),job=jobs.find(item=>item.id===id),address=companyAddressData(),same=address&&job&&job.city===address.city&&job.area===address.area&&job.street===address.street&&job.buildingNumber===address.buildingNumber;form.elements.differentJobAddress.checked=!same;form.querySelector('.location-form-section').updateCompanyAddress?.()};
 
