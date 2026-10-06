@@ -397,3 +397,17 @@ html[data-theme="dark"] #workerNotifications .application-notice.completed{backg
 html[data-theme="dark"] #workerNotifications .application-notice.confirmed>span,
 html[data-theme="dark"] #workerNotifications .application-notice.completed>span{background:#173c30!important;color:#8ee0b6!important;border-color:#315b48!important}
 html[data-theme="dark"] #workerNotifications .application-notice:is(.worker_cancelled,.employer_cancelled,.employer_issue){background:#33201d!important;border-color:#74443b!important}
+
+/* Worker job details: instruction icons and immediate-booking state. */
+#jobModal :is(.instruction-row>span,.application-state,.contact-access-note){border-radius:0!important}
+html[data-theme="dark"] #jobModal .instruction-row{background:#151c21!important;color:#f1f3f4!important;border:1px solid #3a444c!important}
+html[data-theme="dark"] #jobModal .instruction-row>span{background:#2a3136!important;color:var(--lime)!important;border:1px solid #53606a!important}
+html[data-theme="dark"] #jobModal .instruction-row small{color:#aeb7bd!important}
+html[data-theme="dark"] #jobModal .application-state{background:#1b242a!important;color:#f1f3f4!important;border:1px solid #46525b!important}
+html[data-theme="dark"] #jobModal .application-state p{color:#b8c1c7!important}
+html[data-theme="dark"] #jobModal .application-state.confirmed{background:#18251f!important;border-color:#315b48!important}
+html[data-theme="dark"] #jobModal .application-state.confirmed strong{color:#8ee0b6!important}
+html[data-theme="dark"] #jobModal .application-state.pending{background:#332912!important;border-color:#806325!important}
+html[data-theme="dark"] #jobModal .application-state.pending strong{color:#ffd77c!important}
+html[data-theme="dark"] #jobModal .contact-access-note{background:#332912!important;color:#ffd77c!important;border-color:#806325!important}
+html[data-theme="dark"] #jobModal .contact-access-note :is(strong,p){color:inherit!important}
