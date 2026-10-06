@@ -330,3 +330,12 @@ html[data-theme="dark"] .job-costs .total{background:#332912!important;color:#ff
 html[data-theme="dark"] .job-costs .total small{color:#e8bf68!important}
 html[data-theme="dark"] :is(.billing-summary,.payment-remaining){background:#1b242a!important;color:#f1f3f4!important;border-color:#46525b!important}
 
+/* Employer management panel and current/archive tabs. */
+#employer .admin-panel,#employer .management-tabs,#employer .management-tabs button{border-radius:0!important}
+html[data-theme="dark"] #employer{background:#11181d!important;color:#f1f3f4}
+html[data-theme="dark"] #employer .admin-panel{background:#151c21!important;color:#f1f3f4!important;border-color:#3a444c!important}
+html[data-theme="dark"] #employer .management-tabs{background:#0e1418!important;border:1px solid #3a444c!important;padding:4px}
+html[data-theme="dark"] #employer .management-tabs button{background:#1b242a!important;color:#b5bec5!important;border:1px solid #46525b!important;box-shadow:none!important}
+html[data-theme="dark"] #employer .management-tabs button:hover{background:#252f36!important;color:#fff!important;border-color:#6b7881!important}
+html[data-theme="dark"] #employer .management-tabs button.active{background:var(--lime)!important;color:#1a1200!important;border-color:var(--lime)!important;box-shadow:none!important}
+
