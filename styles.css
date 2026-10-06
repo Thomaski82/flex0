@@ -385,3 +385,15 @@ html[data-theme="dark"] #profile :is(.profile-card,.profile-grid .checklist,.ext
 html[data-theme="dark"] #profile .skill-tags span{background:#18251f!important;color:#8ee0b6!important;border:1px solid #315b48!important}
 html[data-theme="dark"] #profile .checkin-demo-button{background:#1b242a!important;color:var(--lime)!important;border-color:#53606a!important;box-shadow:none!important}
 html[data-theme="dark"] #profile :is(.profile-bio,.profile-grid small,.extended-profile-data p){color:#aeb7bd!important}
+
+/* Worker booking/status banners rendered dynamically below the discover header. */
+#workerNotifications .application-notice,#workerNotifications .application-notice>span,#workerNotifications .application-notice button{border-radius:0!important}
+html[data-theme="dark"] #workerNotifications .application-notice{background:#151c21!important;color:#f1f3f4!important;border-color:#46525b!important;box-shadow:none!important}
+html[data-theme="dark"] #workerNotifications .application-notice>span{background:#2a3136!important;color:var(--lime)!important;border:1px solid #53606a!important}
+html[data-theme="dark"] #workerNotifications .application-notice :is(small,p){color:#aeb7bd!important}
+html[data-theme="dark"] #workerNotifications .application-notice button{background:var(--lime)!important;color:#1a1200!important;border:1px solid var(--lime)!important;box-shadow:none!important}
+html[data-theme="dark"] #workerNotifications .application-notice.confirmed,
+html[data-theme="dark"] #workerNotifications .application-notice.completed{background:#18251f!important;border-color:#315b48!important}
+html[data-theme="dark"] #workerNotifications .application-notice.confirmed>span,
+html[data-theme="dark"] #workerNotifications .application-notice.completed>span{background:#173c30!important;color:#8ee0b6!important;border-color:#315b48!important}
+html[data-theme="dark"] #workerNotifications .application-notice:is(.worker_cancelled,.employer_cancelled,.employer_issue){background:#33201d!important;border-color:#74443b!important}
